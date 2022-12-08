@@ -1,13 +1,13 @@
 @component('mail::message')
 # ACS Contact
 
-{{$request->fullName}} has requested to be contacted<br>
+{{$fullName}} has requested to be contacted<br>
 <br>
-Email: {{$request->email}}<br>
-Phone: {{$request->phone}}<br>
+Email: {{$email}}<br>
+Phone: {{$phone}}<br>
 
 Message: <br>
-{{$request->comments}}
+{{$comment}}
 
 
 

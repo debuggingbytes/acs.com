@@ -18,9 +18,11 @@ class PartController extends Controller
     echo "calling API \n";
 
     foreach ($datas as $data) {
-      $slug = $data['make'] . "-" . Str::remove(['(', ')'], Str::replace(' ', '-', $data['category']));
+      // $slug = $data['make'] . "-" . Str::remove(['(', ')'], Str::replace(' ', '-', $data['category']));
+      $slug = $data['make'] . " " . $data['category'];
+      // $slug = Str::slug($data)
       $inventory = Part::create([
-        'slugName' => Str::lower($slug),
+        'slugName' => Str::slug($slug, '-'),
         'category' => $data['category'],
         'make' => $data['make'],
         'model' => $data['model'],

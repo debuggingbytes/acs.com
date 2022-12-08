@@ -176,7 +176,7 @@
                   Fleet Evaulations
                 </span>
                 <p class="p-0 py-2 md:py-0 md:p-2 ml-0 m-0 md:ml-8 md:m-2 roboto">
-                  Contact our team with the information of your fleet and have your equipment evaluated today!                
+                  Contact our team with your fleets information and have your equipment evaluated today!                
                 </p>
               </h3>
             </div>

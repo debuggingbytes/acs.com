@@ -20,6 +20,7 @@ class CreateEmailsTable extends Migration
       $table->string('email')->nullable();
       $table->string('phone')->nullable();
       $table->string('message')->nullable();
+      $table->boolean('is_sent')->nullable();
     });
   }
 

@@ -3,8 +3,18 @@
   $images = json_decode($crane['images'])
 @endphp
 @section('title')
-Used {{$crane['year']}} {{$crane['make']}} {{$crane['model']}} for sale | Alberta Crane Service Ltd
+Used {{$crane['year']}} {{$crane['subject']}} for sale | Alberta Crane Service Ltd
 @endsection
+
+@section('meta')
+  <meta name="title" content="Used {{$crane['year']}} {{$crane['subject']}} for sale | Alberta Crane Service Ltd">
+  <meta name="keywords" content="{{$crane->year}} {{ $crane->subject }}, {{ $crane->capcity }} ton, {{ $crane->condition }} condition, Crane, All-Terrain, Truck Mount, Boom Truck, Tadano, Grove, Liebherr, Mannitwoc, GMK, LTM, LR, Hook, Block, Ball, cropac equipment inc, crane network">
+  <meta name="description" content="{{$crane->year}} {{ $crane->subject }} crane with {{ $crane->capcity }} ton capacity, currently in {{ $crane->condition }} condition for sale">
+  <meta name="robots" content="index, follow">
+  <meta name="revisit-after" content="2 days">
+  <meta name="language" content="English">
+@endsection
+
 
 @section('vh')
 vh-50
@@ -31,12 +41,23 @@ vh-50
   <div class="md:container md:mx-auto p-4 ">
     <div class="p-2">
       <h2 class="uppercase text-cyan-800 text-2xl lg:text-4xl font-bold">Used {{ $crane['year'] }} {{ $crane['subject'] }} for sale</h2>
-      <div class="flex-rows lg:flex pt-12 gap-10 ">
-        <div class="w-100 lg:w-1/2 pb-10 lg:pb-0 ">
-          <div class="w-full lg:w-1/3 border border-cyan-800 rounded-xl shadow-lg overflow-hidden transition-all duration-500 ease-in-out">
+      <p class="font-medium text-xl pt-5">Alberta Crane Service Ltd is proud to present the {{$crane->year}} {{ $crane->subject}} for sale. This equipment is currently listed in {{ $crane->condition }} condition. The {{$crane->year}} {{ $crane->subject }} is classified as a {{ $crane->category }}. 
+      @if (!empty($crane->boom))
+      This {{ $crane->make }} comes with {{$crane->boom}}' of boom 
+        @if (!empty($crane->jib))
+        , and {{$crane->jib}}' of jib.
+        @else
+          .
+        @endif 
+      @endif
+    </p>
+    
+      <div class="flex-rows lg:flex pt-12 gap-5">
+        <div class="w-100 lg:w-1/2 pb-10 lg:pb-0 relative rounded-xl p-5 bg-neutral-100 shadow-lg">
+          <div class="w-full p-2 overflow-hidden transition-all duration-500 ease-in-out">
             <img src='{{ $images[0] }}' class="w-full h-full craneImg" alt="{{ $crane->subject }} for sale"/>
           </div>
-          <div class="mt-5 h-42 px-1 py-2 relative" id="slider">
+          <div class="mt-5 h-42 px-1 py-2 relative " id="slider">
             <div class="flex gap-2 overflow-hidden">
             @foreach ($images as $image)
               <img src='{{ $image }}' class='w-32 h-32 craneThumb cursor-pointer @if ($loop->first) active @endif' alt="{{ $crane->subject }} for sale"/>
@@ -54,7 +75,7 @@ vh-50
             Current Image <span id="curImg"></span> of <span id="imgTotal"></span>
           </div>
         </div>
-        <div class="w-100 lg:w-1/2 uppercase text-xl md:text-2xl font-normal">
+        <div class="w-100 lg:w-1/2 uppercase text-xl md:text-2xl font-normal bg-neutral-100 rounded-xl shadow-lg p-5">
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">manufacture</span> 
             <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['make'] }}</span>
@@ -95,7 +116,7 @@ vh-50
       </div>
       <div class="text-center">
         <h4 class="uppercase text-cyan-800 text-2xl font-semibold py-10">Additional Information</h4>
-        <div class="rounded-xl">
+        <div class="rounded-xl w-2/3 mx-auto overflow-hidden">
           {!! $crane['description'] !!}
         </div> 
      </div>
@@ -115,8 +136,14 @@ vh-50
             {{$next}}
           @endif
         </div>
+
       </div>
     </div>
+  </div>
+  <div class="w-3/4 mx-auto mt-10">
+    <p class="pt-5 text-xl font-medium">
+      <x-about-us/>
+    </p>
   </div>
 </section>
 @endsection

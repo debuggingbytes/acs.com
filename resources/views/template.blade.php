@@ -7,6 +7,8 @@
     <title>
       @yield('title')
     </title>
+    @yield('meta')
+    
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJCT94S2Z1"></script>

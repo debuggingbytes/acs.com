@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Mail\ContactForm;
+use App\Models\Email;
 use App\Models\inventory;
 use App\Models\Part;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -103,8 +107,9 @@ Route::get('/finance', function () {
 
 
 Route::get('/test', function () {
-  $data = InventoryController::partsInventory(true);
-  echo "<pre>";
-  print_r($data);
-  echo "</pre>";
+  $crane = inventory::findOrFail(1);
+  dd($crane);
+  foreach ($crane as $key => $value) {
+    print "KEY IS $key: VALUE IS $value <br>";
+  }
 });

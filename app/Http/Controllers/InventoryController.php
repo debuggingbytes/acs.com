@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class InventoryController extends Controller
 {
   // Grab latest cranes from CN API
-  public static function craneInventory($array = false)
+  public function craneInventory($array = false)
   {
 
     // header('Content-Type: application/json');
@@ -97,7 +97,7 @@ class InventoryController extends Controller
     // return $category;
   }
 
-  public static function updateDatabase()
+  public function updateDatabase()
   {
     echo "Calling Truncate \n";
     inventory::query()->truncate();
@@ -107,9 +107,9 @@ class InventoryController extends Controller
     echo "calling API \n";
 
     foreach ($datas as $data) {
-      $slug = $data['year'] . "-" . $data['make'] . "-" . $data['model'];
+      $slug = $data['year'] . " " . $data['make'] . " " . $data['model'];
       $inventory = inventory::create([
-        'slugName' => Str::lower($slug),
+        'slugName' => Str::slug($slug, '-'),
         'category' => $data['category'],
         'make' => $data['make'],
         'model' => $data['model'],

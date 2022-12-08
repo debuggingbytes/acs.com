@@ -8,7 +8,16 @@
 @extends('template')
 
 @section('title')
-Used Crane Inventory for Sale | Alberta Crane Service Ltd
+Used Crane Parts for Sale | Alberta Crane Service Ltd
+@endsection
+
+@section('meta')
+  <meta name="title" content="Used Crane Parts for sale | Inventory | Alberta Crane Service Ltd">
+  <meta name="keywords" content="Crane, All-Terrain, Truck Mount, Boom Truck, Tadano, Grove, Liebherr, Mannitwoc, GMK, LTM, LR, Hook, Block, Ball, condition, cropac equipment inc, crane network">
+  <meta name="description" content="Vast inventory of used cranes, crane parts, equipment and other heavy equipment. Check out our inventory today at Alberta Crane Service">
+  <meta name="robots" content="index, follow">
+  <meta name="revisit-after" content="2 days">
+  <meta name="language" content="English">
 @endsection
 
 @section('vh')
@@ -39,7 +48,7 @@ vh-50 hero-bg
           <div class="w-full text-center uppercase text-cyan-800 font-semibold text-sm">{{$crane->category}}</div>
 
           <div class="w-full text-center absolute bottom-1 left-1/2 -translate-x-1/2 ">
-            <a href="{{ route('crane', ['id' => $crane->id, 'slug' => $crane->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
+            <a href="{{ route('parts', ['id' => $crane->id, 'slug' => $crane->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
           </div>
         </div>
       </div>

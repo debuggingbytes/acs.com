@@ -17,8 +17,8 @@ class Kernel extends ConsoleKernel
   protected function schedule(Schedule $schedule)
   {
     // $schedule->command('inspire')->hourly();
-    $schedule->call('App\Http\Controllers\InventoryController@updateDatabase')->everySixHours();
-    $schedule->call('App\Http\Controllers\PartController@updateDatabase')->everySixHours();
+    $schedule->command("update:inventory")->hourlyAt(15)->emailOutputTo('kris@debuggingbytes.com');
+    $schedule->command("send:contact")->everyThirtyMinutes()->emailOutputTo('kris@debuggingbytes.com');
   }
 
   /**

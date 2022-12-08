@@ -45,7 +45,7 @@
       </div>
     </div>
   </div>
-  <div class="absolute bottom-1 left-1/2 -translate-x-1/2 pt-10 lg:pt-0" >
+  <div class="absolute bottom-1 left-1/2 -translate-x-1/2 pt-14 lg:pt-0 w-full" >
     <h6 class="block uppercase text-xs text-white text-center w-full">
       <span class="copyright block"></span>
       <span class="block">Website developed and maintained by <a href='https://www.debuggingbytes.com'>DebuggingBytes.com</a></span>

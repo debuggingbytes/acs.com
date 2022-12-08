@@ -91,7 +91,8 @@ header::before {
   height: 100%;
   display: block;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  bottom: 0;
 }
 .slide {
   position: absolute;
@@ -188,6 +189,18 @@ header::before {
 
 .craneImg {
   transition: all 600ms ease;
+  height: 100%;
+  max-height: 80%;
+  min-height: 80%;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+}
+@media (max-width: 1270px){
+  .craneImg {
+    height: 100%;
+    max-height: 26rem;
+    min-height: 25.8rem;
+  }
 }
 .craneThumb.active {
   border: 2px solid #ff8c20;
