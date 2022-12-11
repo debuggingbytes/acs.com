@@ -16,7 +16,7 @@ class EmailController extends Controller
   {
 
     // Grab all emails which have current not been sent
-    $emails = Email::where('is_sent', '=', NULL)->get();
+    $emails = Email::where('is_sent', '=', NULL)->orWhere('is_sent', '=', '0')->get();
 
     foreach ($emails as $email) {
 
@@ -26,6 +26,7 @@ class EmailController extends Controller
       //update database setting value to 1
       DB::table('emails')->where('id', '=', $email['id'])
         ->update(['is_sent' => true]);
+      echo "updated " . $email['email'];
     }
   }
 }
