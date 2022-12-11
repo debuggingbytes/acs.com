@@ -45,12 +45,12 @@ Route::prefix('inventory')->group(function () {
     $cranes = inventory::inRandomOrder()->limit(5)->get();
     $next = Part::where('id', '>', $id)->first();
     if (!$next) {
-      $next = "end of inventory";
+      $next = "end of parts inventory";
     }
     $prev = Part::where('id', '<', $id)->first();
     // dd($prev);
     if (!$prev) {
-      $prev = "Start of inventory";
+      $prev = "Start of parts inventory";
     }
 
     if ($crane === null) {
@@ -59,7 +59,7 @@ Route::prefix('inventory')->group(function () {
       return view('inventory', ['inventory' => $inventory, 'cranes' => $cranes, 'parts' => $parts]);
     }
 
-    return view('crane', ['crane' => $crane, 'cranes' => $cranes, 'next' => $next, 'prev' => $prev]);
+    return view('parts', ['crane' => $crane, 'cranes' => $cranes, 'next' => $next, 'prev' => $prev]);
   })->name('parts');
 
 
