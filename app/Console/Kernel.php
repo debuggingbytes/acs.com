@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendContact;
+use App\Console\Commands\UpdateInventory;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -14,12 +16,17 @@ class Kernel extends ConsoleKernel
    * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
    * @return void
    */
+  // protected $commands = [
+  //   SendContact::class,
+  //   UpdateInventory::class
+  // ];
+
   protected function schedule(Schedule $schedule)
   {
     // $schedule->command('inspire')->hourly();
 
-    $schedule->command("update:inventory")->hourlyAt(15)->emailOutputTo('kris@debuggingbytes.com');
-    $schedule->command("send:contact")->everyMinute()->emailOutputTo('kris@debuggingbytes.com');
+    $schedule->command("update:inventory")->daily();
+    $schedule->command("send:contact")->everyMinute();
   }
 
   /**

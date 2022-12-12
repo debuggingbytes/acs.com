@@ -72,7 +72,7 @@ Route::post('/contact', function (Request $request) {
 
     $mail = mail("contact@albertacraneservice.com", "Contact Information", $message, "from: noreply@albertacraneservice.com");
 
-    Mail::to("contact@albertaservice.com")->send(new ContactForm($request->all()));
+    Mail::to("contact@albertaservice.com")->send(new ContactForm($request->email, $request->fullName, $request->phone, $request->comment));
 
     if (!$mail) {
       return response()->json(['The email failed to send']);
