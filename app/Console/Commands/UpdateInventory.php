@@ -39,5 +39,6 @@ class UpdateInventory extends Command
   {
     app()->call('App\Http\Controllers\PartController@updateDatabase');
     app()->call('App\Http\Controllers\InventoryController@updateDatabase');
+    app()->call('App\Http\Controllers\NonCraneController@updateDatabase');
   }
 }

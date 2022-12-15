@@ -4,9 +4,7 @@ use App\Http\Controllers\InventoryController;
 use App\Mail\ContactForm;
 use App\Models\Email;
 use App\Models\inventory;
-use App\Models\NonCrane;
 use App\Models\Part;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -85,39 +83,6 @@ Route::prefix('inventory')->group(function () {
 
     return view('crane', ['crane' => $crane, 'cranes' => $cranes, 'next' => $next, 'prev' => $prev]);
   })->name('crane');
-
-  // Non Crane / Heavy Equipment routes
-  //  Routes will include a base search of "Heavy-Equipment"
-  //  Route will also include a category and slug of "Heavy-equipment"
-
-  Route::get('/heavy-equipment', function () {
-    $inventory = NonCrane::all();
-    $cranes = inventory::inRandomOrder()->limit(5)->get();
-
-    return view('noncrane-inventory', ['inventory' => $inventory, 'cranes' => $cranes]);
-  })->name('heavy-equipment');
-
-  // View Equipment Route
-  Route::get('/heavy-equipment/{id}/{slug}', function (INT $id) {
-    $nonCrane = NonCrane::find($id);
-    $cranes = inventory::inRandomOrder()->limit(5)->get();
-    $next = inventory::where('id', '>', $id)->first();
-    if (!$next) {
-      $next = "end of inventory";
-    }
-    $prev = inventory::where('id', '<', $id)->first();
-    // dd($prev);
-    if (!$prev) {
-      $prev = "Start of inventory";
-    }
-
-    if ($nonCrane === null) {
-      $inventory = NonCrane::all();
-      return view('noncrane-inventory', ['inventory' => $inventory, 'cranes' => $cranes]);
-    }
-
-    return view('non-crane', ['nonCrane' => $nonCrane, 'cranes' => $cranes, 'next' => $next, 'prev' => $prev]);
-  })->name('heavy-equip-view');
 });
 
 
@@ -137,17 +102,14 @@ Route::get('/finance', function () {
 })->name('finance');
 
 
-Route::get('/dev/update', function () {
-  echo "<h2>Current Status</h2>";
-  echo "<h3>Sending Emails</h3>";
-  app()->call('App\Http\Controllers\EmailController@processUnsentEmails');
-  echo "<h3>Emails sent...</h3>";
-  echo "<h3>Updating inventories ...</h3>";
-  app()->call('App\Http\Controllers\PartController@updateDatabase');
-  app()->call('App\Http\Controllers\InventoryController@updateDatabase');
-  app()->call('App\Http\Controllers\NonCraneController@updateDatabase');
-  echo "<h3>inventories updated...</h3>";
 
 
-  // return "Success..";
+
+
+Route::get('/test', function () {
+  $crane = inventory::findOrFail(1);
+  dd($crane);
+  foreach ($crane as $key => $value) {
+    print "KEY IS $key: VALUE IS $value <br>";
+  }
 });

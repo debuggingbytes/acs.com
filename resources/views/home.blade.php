@@ -79,12 +79,12 @@
             </div>
             {{-- Scrolling Features --}}
             <div class="w-1/3 relative hidden lg:block">
-              <div class="slider min-w-96 h-full">                   
+              <div class="slider-main min-w-96 h-full">                   
                 <div class="h-72 2xl:h-96 w-full relative overflow-hidden rounded-xl">
                   {{-- start slides --}}                  
                   @foreach ($cranes as $crane)
                   
-                    <div class="slide @if ($loop->first) current @endif">
+                    <div class="slide  current">
                       @php
                         $images = json_decode($crane['images']);
                       @endphp
@@ -170,7 +170,10 @@
             {{-- Call to Action --}}
             <div class="w-100 text-xl block md:w-1/2 p-5 m-5 items-start h-full text-center">
               <div class="block">
-                <p class="">Alberta Crane Service also provides a variety of other servies to help your business</p>
+                <p class="uppercase text-xl lg:text-2xl text-white font-bold pb-5 lg:pb-10">
+                  <img src="{{ asset('img/acs-logo-new.png') }}" class="mx-auto">
+                  {{-- <span class="text-cyan-800 block text-xl lg:text-4xl pb-5 lg:pb-10">Alberta Crane Service</span> --}}
+                  also provides a variety of other services to help your business</p>
               </div>
               <h3 class="break-words">
                 <span class="block text-xl py-2 md:py-0` md:text-3xl text-white uppercase font-extrabold tracking-widest">

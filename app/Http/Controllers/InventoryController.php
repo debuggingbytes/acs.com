@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\inventory;
+use App\Models\NonCrane;
 use App\Models\Part;
 use Illuminate\Support\Str;
 
@@ -73,11 +74,14 @@ class InventoryController extends Controller
     $inventory = inventory::all();
     $parts = Part::all();
     $cranes = inventory::inRandomOrder()->limit(5)->get();
-    return view('inventory', ['inventory' => $inventory, 'cranes' => $cranes, 'parts' => $parts]);
+    $nonCrane = NonCrane::all();
+    return view('inventory', ['inventory' => $inventory, 'cranes' => $cranes, 'parts' => $parts, 'nonCrane' => $nonCrane]);
   }
 
   public function showCategory($category)
   {
+    // Category needs to be more dynamic and grab from all databases
+
     $category = Str::replace('-', ' ', $category);
     if (Str::contains($category, 'luffing')) {
       $category = Str::replace('luffing', '(Luffing)', $category);

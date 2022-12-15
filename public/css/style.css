@@ -85,7 +85,13 @@ header::before {
   background-image: url('https://www.albertacraneservice.com/siteart/hero-3.jpg');
 }
 
-
+.slider-main {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
 .slider {
   width: 100%;
   height: 100%;

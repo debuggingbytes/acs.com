@@ -1,20 +1,20 @@
 @extends('template')
 @php
-  $images = json_decode($crane['images'])
+  $images = json_decode($nonCrane['images'])
 @endphp
 @section('title')
-Used {{$crane['year']}} {{$crane['subject']}} for sale | Alberta Crane Service Ltd
+Used {{$nonCrane['year']}} {{$nonCrane['subject']}} for sale | Alberta Crane Service Ltd
 @endsection
 
 @section('meta')
-  <meta name="title" content="Used {{$crane['year']}} {{$crane['subject']}} for sale | Alberta Crane Service Ltd">
-  <meta name="keywords" content="{{$crane->year}} {{ $crane->subject }}, {{ $crane->capcity }} ton, {{ $crane->condition }} condition, Crane, All-Terrain, Truck Mount, Boom Truck, Tadano, Grove, Liebherr, Mannitwoc, GMK, LTM, LR, Hook, Block, Ball, cropac equipment inc, crane network">
-  <meta name="description" content="{{$crane->year}} {{ $crane->subject }} crane with {{ $crane->capcity }} ton capacity, currently in {{ $crane->condition }} condition for sale">
+  <meta name="title" content="Used {{$nonCrane['year']}} {{$nonCrane['subject']}} for sale | Alberta Crane Service Ltd">
+  <meta name="keywords" content="{{$nonCrane->year}} {{ $nonCrane->subject }}, {{ $nonCrane->capcity }} ton, {{ $nonCrane->condition }} condition, Crane, All-Terrain, Truck Mount, Boom Truck, Tadano, Grove, Liebherr, Mannitwoc, GMK, LTM, LR, Hook, Block, Ball, cropac equipment inc, crane network">
+  <meta name="description" content="{{$nonCrane->year}} {{ $nonCrane->subject }} crane with {{ $nonCrane->capcity }} ton capacity, currently in {{ $nonCrane->condition }} condition for sale">
   <meta name="robots" content="index, follow">
   <meta name="revisit-after" content="2 days">
   <meta name="language" content="English">
   <!-- Social Media tags -->
-  <meta property="og:title" content="Used {{$crane['year']}} {{$crane['subject']}} for sale">
+  <meta property="og:title" content="Used {{$nonCrane['year']}} {{$nonCrane['subject']}} for sale">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{Request::url()}}">
   <meta property="og:image" content="{{$images[0]}}">
@@ -28,7 +28,7 @@ vh-50
   style='background-image: url({{$images[0]}}); background-position: center center; background-size: cover;'
 @endsection
 @section('h1-text')
-  <h1 class="text-white uppercase font-bold text-2xl lg:text-4xl">Used {{$crane['year']}} {{$crane['make']}} {{$crane['model']}} for sale</h1>
+  <h1 class="text-white uppercase font-bold text-2xl lg:text-4xl">Used {{$nonCrane['year']}} {{$nonCrane['make']}} {{$nonCrane['model']}} for sale</h1>
 @endsection
 
 @section('content')
@@ -40,17 +40,17 @@ vh-50
   </div>
 </div> --}}
 <section id='breadcrumbs' class="p-5">
-<div class="text-start uppercase font-semibold font-xl text-cyan-800"><a href="{{ route('home') }}">Home</a> > <a href="{{ route('inventory') }}">Inventory</a> > <a href="{{ route('category', ['slug' => Str::kebab(Str::remove(['(',')'], $crane->category))]) }}">{{ $crane['category'] }}</a> > <a href="">{{$crane['subject']}}</a></div>
+<div class="text-start uppercase font-semibold font-xl text-cyan-800"><a href="{{ route('home') }}">Home</a> > <a href="{{ route('inventory') }}">Inventory</a> > <a href="{{ route('category', ['slug' => Str::kebab(Str::remove(['(',')'], $nonCrane->category))]) }}">{{ $nonCrane['category'] }}</a> > <a href="">{{$nonCrane['subject']}}</a></div>
 </section>
 <section class="py-10">
   <div class="md:container md:mx-auto p-4 ">
     <div class="p-2">
-      <h2 class="uppercase text-cyan-800 text-2xl lg:text-4xl font-bold">Used {{ $crane['year'] }} {{ $crane['subject'] }} for sale</h2>
-      <p class="font-medium text-xl pt-5">Alberta Crane Service Ltd is proud to present the {{$crane->year}} {{ $crane->subject}} for sale. This equipment is currently listed in {{ $crane->condition }} condition. The {{$crane->year}} {{ $crane->subject }} is classified as a {{ $crane->category }}. 
-      @if (!empty($crane->boom))
-      This {{ $crane->make }} comes with {{$crane->boom}}' of boom 
-        @if (!empty($crane->jib))
-        , and {{$crane->jib}}' of jib.
+      <h2 class="uppercase text-cyan-800 text-2xl lg:text-4xl font-bold">Used {{ $nonCrane['year'] }} {{ $nonCrane['subject'] }} for sale</h2>
+      <p class="font-medium text-xl pt-5">Alberta Crane Service Ltd is proud to present the {{$nonCrane->year}} {{ $nonCrane->subject}} for sale. This equipment is currently listed in {{ $nonCrane->condition }} condition. The {{$nonCrane->year}} {{ $nonCrane->subject }} is classified as a {{ $nonCrane->category }}. 
+      @if (!empty($nonCrane->boom))
+      This {{ $nonCrane->make }} comes with {{$nonCrane->boom}}' of boom 
+        @if (!empty($nonCrane->jib))
+        , and {{$nonCrane->jib}}' of jib.
         @else
           .
         @endif 
@@ -60,12 +60,12 @@ vh-50
       <div class="flex-rows lg:flex pt-12 gap-5">
         <div class="w-100 lg:w-1/2 pb-10 lg:pb-0 relative rounded-xl p-5 bg-neutral-100 shadow-lg">
           <div class="w-full p-2 overflow-hidden transition-all duration-500 ease-in-out">
-            <img src='{{ $images[0] }}' class="w-full h-full craneImg" alt="{{ $crane->subject }} for sale"/>
+            <img src='{{ $images[0] }}' class="w-full h-full craneImg" alt="{{ $nonCrane->subject }} for sale"/>
           </div>
           <div class="mt-5 h-42 px-1 py-2 relative " id="slider">
             <div class="flex gap-2 overflow-hidden">
             @foreach ($images as $image)
-              <img src='{{ $image }}' class='w-32 h-32 craneThumb cursor-pointer @if ($loop->first) active @endif' alt="{{ $crane->subject }} for sale"/>
+              <img src='{{ $image }}' class='w-32 h-32 craneThumb cursor-pointer @if ($loop->first) active @endif' alt="{{ $nonCrane->subject }} for sale"/>
             @endforeach
           </div>
             <button id="prevCrane" class="hover:drop-shadow-md hover:font-bold hover:opacity-80 text-black font-semibold bg-white/80 rounded-xl px-2 py-1.5">
@@ -83,46 +83,34 @@ vh-50
         <div class="w-100 lg:w-1/2 uppercase text-xl md:text-2xl font-normal bg-neutral-100 rounded-xl shadow-lg p-5">
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">manufacture</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['make'] }}</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['make'] }}</span>
           </div>
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">Model</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['model'] }}</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['model'] }}</span>
           </div>
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">Year</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['year'] }}</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['year'] }}</span>
           </div>
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">Hours</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['hours'] ? $crane['hours'] : "contact" }}</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['hours'] ? $nonCrane['hours'] : "contact" }}</span>
           </div>
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">Condition</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['condition'] }}</span>
-          </div>
-          <div class="block border-slate-800 pb-2 border-b-2 mb-3">
-            <span class="inline-block w-40">capacity</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['capacity'] }}</span>
-          </div>
-          <div class="block border-slate-800 pb-2 border-b-2 mb-3">
-            <span class="inline-block w-40">Boom</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['boom'] }}'</span>
-          </div>
-          <div class="block border-slate-800 pb-2 border-b-2 mb-3">
-            <span class="inline-block w-40">Jib</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['jib'] }}'</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['condition'] }}</span>
           </div>
           <div class="block border-slate-800 pb-2 border-b-2 mb-3">
             <span class="inline-block w-40">category</span> 
-            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $crane['category'] }}</span>
+            <span class="inline-block ml-2 md:ml-12 font-semibold">{{ $nonCrane['category'] }}</span>
           </div>
         </div>
       </div>
       <div class="text-center">
         <h4 class="uppercase text-cyan-800 text-2xl font-semibold py-10">Additional Information</h4>
         <div class="rounded-xl w-2/3 mx-auto overflow-hidden">
-          {!! $crane['description'] !!}
+          {!! $nonCrane['description'] !!}
         </div> 
      </div>
       <div class="flex-rows md:flex w-100 md:justify-between pt-10">

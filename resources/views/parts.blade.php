@@ -13,6 +13,11 @@ Used {{$crane['year']}} {{$crane['subject']}} for sale | Alberta Crane Service L
   <meta name="robots" content="index, follow">
   <meta name="revisit-after" content="2 days">
   <meta name="language" content="English">
+   <!-- Social Media tags -->
+   <meta property="og:title" content="Used {{$crane['year']}} {{$crane['subject']}} for sale">
+   <meta property="og:type" content="website">
+   <meta property="og:url" content="{{Request::url()}}">
+   <meta property="og:image" content="{{$images[0]}}">
 @endsection
 
 

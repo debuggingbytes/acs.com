@@ -66,6 +66,27 @@ vh-50 hero-bg
       </div>
 
       @endforeach
+
+      {{-- Heavy Equipment (Non Cranes) --}}
+      @foreach ($nonCrane as $nc)
+      @php
+        $images = json_decode($nc['images']);
+      @endphp
+      <div class="flex shadow p-2 rounded-xl bg-zinc-50 gap-5 @if ($loop->iteration > 6) fadeIn  @endif" data-category="{{ $nc->category }}">
+        <div class="w-3/4 h-40">
+          <img src="{{ $images[0] }}" class="object-fill w-full h-full" alt="Used {{ $nc->subject }} for sale">
+        </div>
+        <div class="flex-rows w-full align-center justify-center relative">
+          <div class="w-full text-center uppercase text-cyan-800 font-semibold  text-sm">{{$nc->year}} {{$nc->subject}}</div>
+          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-sm">{{$nc->category}}</div>
+
+          <div class="w-full text-center absolute bottom-1 left-1/2 -translate-x-1/2 ">
+            <a href="{{ route('heavy-equip-view', ['id' => $nc->id, 'slug' => $nc->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
+          </div>
+        </div>
+      </div>
+
+      @endforeach
     </div>
   </div>
 </section>
