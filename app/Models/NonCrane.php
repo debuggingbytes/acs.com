@@ -10,4 +10,10 @@ class NonCrane extends Model
   use HasFactory;
 
   protected $fillable = ['slugName', 'category', 'make', 'model', 'subject', 'year', 'images', 'description', 'hours', 'condition'];
+
+
+  public function getCleanDescriptionAttribute()
+  {
+    return strip_tags($this->description, '<br>');
+  }
 }

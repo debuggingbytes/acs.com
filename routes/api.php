@@ -57,26 +57,8 @@ Route::post('/contact', function (Request $request) {
       'email' => $request->email
     ];
 
-    $message = "
-    Hello, there was a recent email submitted to the website.\n\n
-    
-    Full Name: $request->fullName\n
-    Email: $request->email\n
-    Phone: $request->phone\n
-    Comments:\n
-    $request->comments
-    
+    Mail::to("contact@albertacraneservice.com")->send(new ContactForm($request->email, $request->fullName, $request->phone, $request->comments));
 
-    Please note, this is an automated email
-    ";
-
-    $mail = mail("contact@albertacraneservice.com", "Contact Information", $message, "from: noreply@albertacraneservice.com");
-
-    Mail::to("contact@albertaservice.com")->send(new ContactForm($request->email, $request->fullName, $request->phone, $request->comment));
-
-    if (!$mail) {
-      return response()->json(['The email failed to send']);
-    }
     return response(json_encode($response), 200);
   } else {
     return response(json_encode('Error with creating email'), 300);

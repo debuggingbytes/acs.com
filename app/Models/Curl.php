@@ -5,21 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inventory extends Model
+class Curl extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['slugName', 'category', 'make', 'model', 'subject', 'year', 'capacity', 'boom', 'jib', 'images', 'description', 'hours', 'condition'];
-  // public $timestamps = false;
 
-  public function getCleanDescriptionAttribute()
+  // Curl function to pull information from crane network
+  public static function getApi($api)
   {
-    return strip_tags($this->description, '<br>');
-  }
 
-  // Grab latest cranes from CN API
-  public function craneInventory()
-  {
+
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
     curl_setopt($curl, CURLOPT_FAILONERROR, true);
@@ -29,13 +24,14 @@ class inventory extends Model
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($curl, CURLOPT_TIMEOUT, 5);
-    curl_setopt($curl, CURLOPT_URL, env('CN_API_CRANE'));
+    curl_setopt($curl, CURLOPT_URL, env($api));
     curl_setopt($curl, CURLOPT_VERBOSE, true);
 
+    // dd($curl);
     $http_result = curl_exec($curl);
-    dd($http_result);
     curl_close($curl);
 
-    print $http_result;
+
+    return $http_result;
   }
 }

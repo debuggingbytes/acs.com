@@ -29,17 +29,33 @@ if (form) {
   form.addEventListener("submit", handleSubmit)
 }
 
+// Form loading 
+const loading = document.querySelector('.loading')
+
 async function handleSubmit(e) {
   e.preventDefault()
   const url = '/api/contact'
+
+  // Form has been submitted, so lets show the form is trying to send
+  // Remove send message & plane, show spinner icon
+  plane.style.visibility = 'hidden'
+  loading.classList.toggle('hidden')
+
   try {
     const formData = new FormData(form)
     const responseData = await processSubmit({ url, formData })
+
+
     console.log(responseData)
     if (responseData) {
 
+      // Form has been successful
+      // Remove spinner, show plane
+      plane.style.visibility = 'hidden'
+      loading.classList.toggle('hidden')
       const message = document.querySelector('.formSuccess')
       message.classList.toggle('hidden')
+
       form.fullName.value = ''
       form.email.value = ''
       form.phone.value = ''
@@ -53,6 +69,8 @@ async function handleSubmit(e) {
   catch (error) {
     const message = document.querySelector('.formError')
     message.classList.toggle('hidden')
+    plane.style.visibility = 'hidden'
+    loading.classList.toggle('hidden')
     setTimeout(() => {
       message.classList.toggle('hidden')
     }, 4000);

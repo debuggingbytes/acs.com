@@ -1,6 +1,4 @@
 {{--
-   ToDo
-    Convert inventory images to components
     ToDo
       Make home view extend template
  --}}
@@ -14,6 +12,8 @@
     </title>
       <!-- Global site tag (gtag.js) - Google Analytics -->
   <!-- Google tag (gtag.js) -->
+    {{-- Only load analytics if in productions --}}
+    @production
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJCT94S2Z1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -25,6 +25,8 @@
 
       gtag('config', 'G-XJCT94S2Z1');
     </script>
+    @endproduction
+    <link rel="preload" as="image" href="https://www.albertacraneservice.com/siteart/hero-3.jpg">
     {{-- Tailwind CSS --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{-- Custom CSS --}}
@@ -39,6 +41,8 @@
     <link rel="mask-icon" href="{{asset('safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    {{-- Font Awesome --}}
+    <script src="https://kit.fontawesome.com/c5608c8cee.js" crossorigin="anonymous"></script>
 
 
   </head>

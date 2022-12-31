@@ -17,34 +17,14 @@ class Kernel extends ConsoleKernel
    * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
    * @return void
    */
-  protected $commands = [
-    Commands\SendContact::class,
-    Commands\UpdateInventory::class
-  ];
+  // protected $commands = [
+  //   'App\Console\Commands\SendContact',
+  //   'App\Console\Commands\UpdateInventory'
+  // ];
 
   protected function schedule(Schedule $schedule)
   {
-    // $schedule->command('inspire')->hourly();
-
-    // $schedule->command("update:inventory")->twiceDaily();
-    // $schedule->command("send:contact")->everyMinute();
-    $schedule->call(function () {
-      Log::info("Begin Emails");
-      app()->call('App\Http\Controllers\EmailController@processUnsentEmails');
-      Log::info("Processed emails");
-    })->everyMinute();
-
-    $schedule->call(function () {
-      Log::info("Updating Inventory..");
-      app()->call('App\Http\Controllers\PartController@updateDatabase');
-      Log::info("Updated Parts..");
-
-      app()->call('App\Http\Controllers\InventoryController@updateDatabase');
-      Log::info("Updated Crane Inventory..");
-
-      app()->call('App\Http\Controllers\NonCraneController@updateDatabase');
-      Log::info("Updated Non-Crane Inventory..");
-    })->everySixHours();
+    $schedule->command("update:inventory")->hourly();
   }
 
   /**

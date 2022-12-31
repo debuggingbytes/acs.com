@@ -49,9 +49,13 @@
     bg-cyan-700 px-4 py-2 me-5 rounded-md text-lg text-white font-bold tracking-wider align-middle 
     transition-all duration-500 ease-in-out overflow-hidden
      hover:shadow-md hover:ring-2 hover:ring-violet-400
-    hover:bg-gradient-to-br hover:from-sky-400 hover:via-cyan-800 hover:to-blue-900                  
+    hover:bg-gradient-to-br hover:from-sky-400 hover:via-cyan-800 hover:to-blue-900  relative                
     ">
-      Send <span class="material-symbols-outlined align-middle transition-all duration-1000 delay-150" id="plane">send</span>
+      Send 
+      <span class="ml-3 fa-solid fa-plane transition-all duration-1000 delay-150" id="plane"></span>
+      <span class="loading hidden">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </span>
     </button>
   </div>
 </form>

@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PartController;
 use App\Mail\ContactForm;
+use App\Models\Curl;
 use App\Models\Email;
 use App\Models\inventory;
 use App\Models\NonCrane;
 use App\Models\Part;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -150,4 +153,29 @@ Route::get('/dev/update', function () {
 
 
   // return "Success..";
+});
+
+Route::get('/test', function () {
+
+  $response = Http::post(env("CN_API_CRANE"));
+
+  // echo "<h2>STATUS</h2>";
+  // echo $response->status();
+  // echo "<br><h2>BODY</h2>";
+  // echo $response->json();
+  // echo "<br><h2>SUCCESSFUL</h2>";
+  // echo $response->successful();
+  // echo "<br>";
+  dd(json_decode($response->body()));
+});
+
+
+//  ADMIN DASHBOARD
+Route::middleware('auth:sanctum')->group(function () {
+  Route::prefix('/dashboard')->group(function () {
+
+    Route::get('/', function () {
+      return view('dashboard.index');
+    });
+  });
 });

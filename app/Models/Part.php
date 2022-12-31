@@ -11,6 +11,12 @@ class Part extends Model
 
   protected $fillable = ['slugName', 'category', 'make', 'model', 'subject', 'year', 'capacity', 'boom', 'jib', 'images', 'description', 'hours', 'condition'];
 
+  public function getCleanDescriptionAttribute()
+  {
+    return strip_tags($this->description, '<br>');
+  }
+
+
   public function partsInventory()
   {
     $curl = curl_init();

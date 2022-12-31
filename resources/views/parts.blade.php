@@ -122,7 +122,8 @@ vh-50
       <div class="text-center">
         <h4 class="uppercase text-cyan-800 text-2xl font-semibold py-10">Additional Information</h4>
         <div class="rounded-xl w-2/3 mx-auto overflow-hidden">
-          {!! $crane['description'] !!}
+          {!! $crane->clean_description !!}
+          
         </div> 
      </div>
       <div class="flex-rows md:flex w-100 md:justify-between pt-10">

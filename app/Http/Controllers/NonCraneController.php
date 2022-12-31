@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NonCrane;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 
@@ -13,58 +14,44 @@ class NonCraneController extends Controller
   public function updateDatabase()
   {
 
-    NonCrane::query()->truncate();
-    echo "truncated..\n";
+    //Pull Request from API
+    echo "Calling API...\n";
+    $response = Http::post(env("API_EQMT"));
+    echo "API Called...\n";
 
-    $datas = $this->partsInventory(true);
-    echo "calling API \n";
+    if ($response->status() === 200) {
+      echo "Status ok.. \n";
+      $datas = json_decode($response->body(), true);
 
-    foreach ($datas as $data) {
-      // $slug = $data['make'] . "-" . Str::remove(['(', ')'], Str::replace(' ', '-', $data['category']));
-      $slug = $data['make'] . " " . $data['category'];
-      // $slug = Str::slug($data)
-      $inventory = NonCrane::create([
-        'slugName' => Str::slug($slug, '-'),
-        'category' => $data['category'],
-        'make' => $data['make'],
-        'model' => $data['model'],
-        'hours' => $data['hours'],
-        'condition' => $data['condition'],
-        'subject' => $data['subject'],
-        'year' => $data['year'],
-        'description' => $data['description'],
-        'images' => json_encode($data['images']),
-      ]);
-      $inventory->save();
+      echo "Calling Truncate \n";
+      NonCrane::query()->truncate();
+      echo "truncated..\n";
+
+      foreach ($datas as $data) {
+        // $slug = $data['make'] . "-" . Str::remove(['(', ')'], Str::replace(' ', '-', $data['category']));
+        $slug = $data['make'] . " " . $data['category'];
+        // $slug = Str::slug($data)
+        $inventory = NonCrane::create([
+          'slugName' => Str::slug($slug, '-'),
+          'category' => $data['category'],
+          'make' => $data['make'],
+          'model' => $data['model'],
+          'hours' => $data['hours'],
+          'condition' => $data['condition'],
+          'subject' => $data['subject'],
+          'year' => $data['year'],
+          'description' => $data['description'],
+          'images' => json_encode($data['images']),
+        ]);
+        $inventory->save();
+        echo "Saving..\n";
+        echo $slug . "\n";
+      }
+      echo "Inventory updated successfully..\n";
+    } else {
+      echo "Error calling API..\n";
     }
-  }
 
-
-  public static function partsInventory($array = false)
-  {
-
-    // header('Content-Type: application/json');
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($curl, CURLOPT_FAILONERROR, true);
-    curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, env('CN_API_DATA'));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 5);
-    curl_setopt($curl, CURLOPT_URL, env('CN_API_EQMT'));
-    curl_setopt($curl, CURLOPT_VERBOSE, true);
-
-    // dd($curl);
-    $http_result = curl_exec($curl);
-    curl_close($curl);
-
-
-    if ($array === true) {
-      $cranes = json_decode($http_result, true);
-      return $cranes;
-    }
-    return response($http_result)->header('Content-Type', 'application/json');
-  }
+    echo "Closing API..\n";
+  } // updateDatabase
 }

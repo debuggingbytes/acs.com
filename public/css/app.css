@@ -609,6 +609,9 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
+.ml-3 {
+  margin-left: 0.75rem;
+}
 .block {
   display: block;
 }
@@ -686,6 +689,9 @@ video {
 }
 .w-auto {
   width: auto;
+}
+.w-8 {
+  width: 2rem;
 }
 .-translate-x-1\/2 {
   --tw-translate-x: -50%;
@@ -1637,12 +1643,12 @@ video {
     padding-bottom: 0px;
   }
 
-  .lg\:pt-0 {
-    padding-top: 0px;
-  }
-
   .lg\:pb-10 {
     padding-bottom: 2.5rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0px;
   }
 
   .lg\:text-start {
