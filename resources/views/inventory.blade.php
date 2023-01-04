@@ -27,65 +27,62 @@ vh-50 hero-bg
   <div class="md:container md:mx-auto p-4">
     <div class="grid grid-flow-rows grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-max gap-5 p-2">
       @foreach ($inventory as $crane)
-      @php
-        $images = json_decode($crane['images']);
-      @endphp
-      <div class="flex shadow p-2 rounded-xl bg-zinc-50 gap-5 @if ($loop->iteration > 6) fadeIn  @endif" data-category="{{ $crane->category }}">
-        <div class="w-3/4 h-40">
-          <img src="{{ $images[0] }}" class="object-fill w-full h-full" alt="Used {{ $crane->subject }} for sale">
-        </div>
-        <div class="flex-rows w-full align-center justify-center relative">
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-md">{{$crane->year}} {{$crane->subject}}</div>
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-md">{{$crane->capacity}}T</div>
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-xs">{{$crane->category}}</div>
-
-          <div class="w-full text-center absolute bottom-1 left-1/2 -translate-x-1/2 ">
-            <a href="{{ route('crane', ['id' => $crane->id, 'slug' => $crane->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
-          </div>
-        </div>
-      </div>
-
+        @php
+          $images = json_decode($crane['images']);
+        @endphp    
+        <x-inventory-card 
+          :loop="$loop->iteration"
+          :category="$crane->category"
+          :year="$crane->year"
+          :subject="$crane->subject"
+          :capacity="$crane->capacity"
+          :condition="$crane->condition"
+          :images="$images"
+          :id="$crane->id"
+          :slug="$crane->slugName"
+          route="crane"
+        />
       @endforeach
       
       @foreach ($parts as $part)
       @php
-        $images = json_decode($part['images']);
-      @endphp
-      <div class="flex shadow p-2 rounded-xl bg-zinc-50 gap-5 @if ($loop->iteration > 6) fadeIn  @endif" data-category="{{ $part->category }}">
-        <div class="w-3/4 h-40">
-          <img src="{{ $images[0] }}" class="object-fill w-full h-full" alt="Used {{ $part->subject }} for sale">
-        </div>
-        <div class="flex-rows w-full align-center justify-center relative">
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold  text-sm">{{$part->year}} {{$part->subject}}</div>
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-sm">{{$part->category}}</div>
-
-          <div class="w-full text-center absolute bottom-1 left-1/2 -translate-x-1/2 ">
-            <a href="{{ route('parts', ['id' => $part->id, 'slug' => $part->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
-          </div>
-        </div>
-      </div>
+        $images = json_decode($part['images'], true);
+      @endphp    
+       
+      {{-- {{$part->images}} --}}
+      <x-inventory-card 
+          :loop="$loop->iteration"
+          :category="$part->category"
+          :year="$part->year"
+          :subject="$part->subject"
+          :capacity="$part->capacity"
+          :condition="$part->condition"
+          :images="$images"
+          :id="$part->id"
+          :slug="$part->slugName"
+          route="parts"
+        />
 
       @endforeach
 
       {{-- Heavy Equipment (Non Cranes) --}}
       @foreach ($nonCrane as $nc)
-      @php
-        $images = json_decode($nc['images']);
-      @endphp
-      <div class="flex shadow p-2 rounded-xl bg-zinc-50 gap-5 @if ($loop->iteration > 6) fadeIn  @endif" data-category="{{ $nc->category }}">
-        <div class="w-3/4 h-40">
-          <img src="{{ $images[0] }}" class="object-fill w-full h-full" alt="Used {{ $nc->subject }} for sale">
-        </div>
-        <div class="flex-rows w-full align-center justify-center relative">
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold  text-sm">{{$nc->year}} {{$nc->subject}}</div>
-          <div class="w-full text-center uppercase text-cyan-800 font-semibold text-sm">{{$nc->category}}</div>
+        @php
+          $images = json_decode($nc['images']);
+        @endphp
 
-          <div class="w-full text-center absolute bottom-1 left-1/2 -translate-x-1/2 ">
-            <a href="{{ route('heavy-equip-view', ['id' => $nc->id, 'slug' => $nc->slugName]) }}" class="px-3 py-2 bg-cyan-800 rounded-md text-white uppercase font-md transition-all ease-in-out hover:bg-cyan-500">View Equipment</a>
-          </div>
-        </div>
-      </div>
-
+        <x-inventory-card 
+        :loop="$loop->iteration"
+        :category="$nc->category"
+        :year="$nc->year"
+        :subject="$nc->subject"
+        :capacity="$nc->capacity"
+        :condition="$nc->condition"
+        :images="$images"
+        :id="$nc->id"
+        :slug="$nc->slugName"
+        route="heavy-equip-view"
+      />
       @endforeach
     </div>
   </div>

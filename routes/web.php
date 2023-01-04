@@ -141,32 +141,16 @@ Route::get('/finance', function () {
 
 
 Route::get('/dev/update', function () {
-  echo "<h2>Current Status</h2>";
-  echo "<h3>Sending Emails</h3>";
-  app()->call('App\Http\Controllers\EmailController@processUnsentEmails');
-  echo "<h3>Emails sent...</h3>";
-  echo "<h3>Updating inventories ...</h3>";
-  app()->call('App\Http\Controllers\PartController@updateDatabase');
-  app()->call('App\Http\Controllers\InventoryController@updateDatabase');
-  app()->call('App\Http\Controllers\NonCraneController@updateDatabase');
-  echo "<h3>inventories updated...</h3>";
-
-
   // return "Success..";
+  $response = [Http::post(env("API_CRANE")), Http::post(env("API_EQMT")), Http::post(env("API_PARTS"))];
+  return json_decode($response[2]->body(), true);
 });
 
 Route::get('/test', function () {
+  $part = Part::all();
 
-  $response = Http::post(env("CN_API_CRANE"));
-
-  // echo "<h2>STATUS</h2>";
-  // echo $response->status();
-  // echo "<br><h2>BODY</h2>";
-  // echo $response->json();
-  // echo "<br><h2>SUCCESSFUL</h2>";
-  // echo $response->successful();
-  // echo "<br>";
-  dd(json_decode($response->body()));
+  $images = json_decode($part[0]->images, true);
+  return $part[0]->subject . " " . $images[2];
 });
 
 
